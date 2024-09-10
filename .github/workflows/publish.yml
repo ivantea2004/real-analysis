@@ -1,18 +1,41 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+name: build
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '**.tex'
+      - '**.bib'
+      - '**.yaml'
 jobs:
-  Explore-GitHub-Actions:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Check out repository code
-        uses: actions/checkout@v4
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+    - name: Set up Git repository
+      uses: actions/checkout@v1
+    - name: Compile LaTeX document
+      uses: xu-cheng/latex-action@master
+      with:
+        root_file: main.tex
+    - name: Check pdf file
+      run: |
+        file main.pdf | grep -q ' PDF '
+    - name: Upload
+      run: |
+        set -e
+        # configure git
+        git config --global user.name "user"
+        git config --global user.email "email"
+
+        # Copy and commit the PDF file
+        mkdir -p "$GITHUB_WORKSPACE/deploy"
+        cp -f main.pdf "$GITHUB_WORKSPACE/deploy/main.pdf"
+        cd "$GITHUB_WORKSPACE/deploy"
+        git init
+        git checkout --orphan gh-pages
+        git add main.pdf
+        git commit -m "[github actions] deploy"
+        git remote add origin https://$TOKEN@github.com/MandaloreUltimate/stat-book.git
+        git push --force --set-upstream origin gh-pages
+      env:
+        TOKEN: ${{ secrets.TOKEN }}
