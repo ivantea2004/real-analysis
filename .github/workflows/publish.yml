@@ -42,6 +42,7 @@ jobs:
         git clone https://$TOKEN@github.com/ivantea2004/ivantea2004.github.io.git
         cd ivantea2004.github.io
         cp ../../main.pdf main.pdf
+        ls .
         git add .
         git push origin main
       env:
