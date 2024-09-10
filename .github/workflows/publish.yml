@@ -10,6 +10,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+        contents: write 
     steps:
     - name: Set up Git repository
       uses: actions/checkout@v1
@@ -37,12 +39,10 @@ jobs:
         #git commit -m "[github actions] deploy"
         #git remote add origin https://$TOKEN@github.com/MandaloreUltimate/stat-book.git
         #git push --force --set-upstream origin gh-pages
-        git clone https://github.com/ivantea2004/ivantea2004.github.io.git
+        git clone https://{secrets.GITHUB_TOKEN}github.com/ivantea2004/ivantea2004.github.io.git
         cd ivantea2004.github.io
         cp ../../main.pdf main.pdf
         git add .
         git push origin main
       env:
         TOKEN: ${{ secrets.TOKEN }}
-      permissions:
-        contents: write 
