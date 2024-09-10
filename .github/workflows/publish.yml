@@ -41,7 +41,7 @@ jobs:
         git checkout --orphan main
         git add main.pdf
         git commit -m "deploy"
-        git remote add origin https://ivantea2004/ivantea2004.github.io.git
+        git remote add origin https://github.com/ivantea2004/ivantea2004.github.io.git
         git push --force --set-upstream origin main
       env:
         TOKEN: ${{ secrets.TOKEN }}
