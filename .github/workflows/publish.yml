@@ -31,11 +31,17 @@ jobs:
         mkdir -p "$GITHUB_WORKSPACE/deploy"
         cp -f main.pdf "$GITHUB_WORKSPACE/deploy/main.pdf"
         cd "$GITHUB_WORKSPACE/deploy"
+        #git init
+        #git checkout --orphan gh-pages
+        #git add main.pdf
+        #git commit -m "[github actions] deploy"
+        #git remote add origin https://$TOKEN@github.com/MandaloreUltimate/stat-book.git
+        #git push --force --set-upstream origin gh-pages
         git init
-        git checkout --orphan gh-pages
+        git checkout --orphan main
         git add main.pdf
-        git commit -m "[github actions] deploy"
-        git remote add origin https://$TOKEN@github.com/MandaloreUltimate/stat-book.git
-        git push --force --set-upstream origin gh-pages
+        git commit -m "deploy"
+        git remote add origin https://ivantea2004/ivantea2004.github.io.git
+        git push --force --set-upstream origin main
       env:
         TOKEN: ${{ secrets.TOKEN }}
