@@ -44,6 +44,7 @@ jobs:
         cp ../../main.pdf main.pdf
         ls .
         git add .
+        git commit -m "deploy"
         git push origin main
       env:
         TOKEN: ${{ secrets.PAGES_DEPLOY_TOKEN }}
