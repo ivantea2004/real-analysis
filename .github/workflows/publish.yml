@@ -45,4 +45,4 @@ jobs:
         git add .
         git push origin main
       env:
-        TOKEN: ${{ secrets.TOKEN }}
+        TOKEN: ${{ secrets.GITHUB_TOKEN }}
