@@ -44,3 +44,5 @@ jobs:
         git push origin main
       env:
         TOKEN: ${{ secrets.TOKEN }}
+      permissions:
+        contents: write 
