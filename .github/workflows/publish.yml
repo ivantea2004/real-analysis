@@ -37,11 +37,10 @@ jobs:
         #git commit -m "[github actions] deploy"
         #git remote add origin https://$TOKEN@github.com/MandaloreUltimate/stat-book.git
         #git push --force --set-upstream origin gh-pages
-        git init
-        git checkout --orphan main
-        git add main.pdf
-        git commit -m "deploy"
-        git remote add origin https://github.com/ivantea2004/ivantea2004.github.io.git
-        git push --force --set-upstream origin main
+        git clone https://github.com/ivantea2004/ivantea2004.github.io.git
+        cd ivantea2004.github.io
+        cp ../../main.pdf main.pdf
+        git add .
+        git push origin main
       env:
         TOKEN: ${{ secrets.TOKEN }}
